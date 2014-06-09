@@ -9,6 +9,8 @@ def conectar():
     return con
 
 def obtener(filtro):
+    # obtiene la lista de productos segun filtro de marcas
+    # 0 es para cuando no hay marca en especifico y se muestran todos los productos
     if filtro == "0":
         con = conectar()
         c = con.cursor()
@@ -27,6 +29,7 @@ def obtener(filtro):
         return producto
 
 def insertar(cod, nombre, desc, col, prec, fk):
+    #se inserta nuevo producto a la base de datos
     exito = False
     conn = sqlite3.connect("producto.db")
     c = conn.cursor()
@@ -46,6 +49,7 @@ def insertar(cod, nombre, desc, col, prec, fk):
 
 
 def eliminar(cod):
+    #con este metodo se eliminan productos de la base de datos
     exito = False
     conn = sqlite3.connect("producto.db")
     c = conn.cursor()
@@ -63,7 +67,8 @@ def eliminar(cod):
 
 
 def consultar_nombre(name):
-    #consultar por un producto segun nombre
+    #consultar por un producto segun nombre o productos que contengan
+    #la palabra buscada
     conn = sqlite3.connect("producto.db")
     c = conn.cursor()
     query = """SELECT * FROM Producto WHERE nombre LIKE '%"""+name+"""%'"""
