@@ -35,7 +35,25 @@ class Principal(QtGui.QWidget, Taller.Ui_Dialog, agregar.Ui_AddP):
         print "editar" #aca va el metodo que captura la linea a editar
 
     def eliminar(self): #aca va el metodo que selecciona la linea a eliminar
-        print "eliminar"
+        model = self.table.model()
+        index = self.table.currentIndex()
+        if index.row() == -1:
+            self.errorMessageDialog = QtGui.QErrorMessage(self)
+            self.errorMessageDialog.showMessage("Debe seleccionar una fila")
+            return False
+        else:
+            #Obtenemos el codigo que es la primary key en la tabla Producto
+            codigo = model.index(index.row(), 0, QtCore.QModelIndex()).data()
+            if (bd.eliminar(codigo)):
+                self.load()
+                msgBox = QtGui.QMessageBox()
+                msgBox.setText("EL registro fue eliminado.")
+                msgBox.exec_()
+                return True
+            else:
+                self.ui.errorMessageDialog = QtGui.QErrorMessage(self)
+                self.ui.errorMessageDialog.showMessage("Error al eliminar")
+                return False
 
     def render_table(self):
         self.table = self.tableView
