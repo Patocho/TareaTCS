@@ -14,6 +14,7 @@ class Agregando(QtGui.QDialog, agregar.Ui_AddP):
         self.setupUi(self)
         self.main_layout = QtGui.QVBoxLayout(self)
         self.addOk.clicked.connect(self.agrega)
+        self.addCancel.clicked.connect(self.cancelar)
         self.show()
 
     def agrega(self):
@@ -30,6 +31,16 @@ class Agregando(QtGui.QDialog, agregar.Ui_AddP):
         msgbox.exec_()
         self.close()
 
+    def cancelar():
+        if (self.textCodigo.text() != "" or self.textNom.text() != "" or self.textDesc.text() != "" or self.textColor.text() != "" or self.textPrecio.text() != "" or self.textFk2.text() != ""):
+            self.textCodigo.setText("")
+            self.textNom.setText("")
+            self.texDesc.setText("")
+            self.textColor.setText("")
+            self.textPrecio.setText("")
+            self.textFk2.setText("")
+        else:
+            self.close()
 
 def run():
     app = QtGui.QApplication(sys.argv)

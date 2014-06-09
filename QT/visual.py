@@ -45,7 +45,7 @@ class Principal(QtGui.QWidget, Taller.Ui_Dialog, agregar.Ui_AddP):
             #Obtenemos el codigo que es la primary key en la tabla Producto
             codigo = model.index(index.row(), 0, QtCore.QModelIndex()).data()
             if (bd.eliminar(codigo)):
-                self.load()
+                self.load("0")
                 msgBox = QtGui.QMessageBox()
                 msgBox.setText("EL registro fue eliminado.")
                 msgBox.exec_()
