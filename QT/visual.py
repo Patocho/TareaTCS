@@ -7,6 +7,7 @@ from PySide.QtGui import *
 import Taller
 import bd
 import agregar
+import agregando
 
 
 class Principal(QtGui.QWidget, Taller.Ui_Dialog, agregar.Ui_AddP):
@@ -26,6 +27,8 @@ class Principal(QtGui.QWidget, Taller.Ui_Dialog, agregar.Ui_AddP):
         self.Del.clicked.connect(self.eliminar)
 
     def agrega(self):
+        app = agregando.Agregando()
+        app.exec_()
         print "agregar" #aca va el metodo que abre la ventana agregar.ui
 
     def editar(self):
