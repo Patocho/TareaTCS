@@ -9,14 +9,14 @@ import agregar
 class Agregando(QtGui.QDialog, agregar.Ui_AddP):
 
     def __init__(self, parent=None):
-        super(agregando, self).__init__(parent)
+        super(Agregando, self).__init__(parent)
         self.setupUi(self)
         self.main_layout = QtGui.QVBoxLayout(self)
         self.show()
 
 def run():
     app= QtGui.QApplication(sys.argv)
-    form=agregando()
+    form=Agregando()
     form.show()
     app.exec_()
 
