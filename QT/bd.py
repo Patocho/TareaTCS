@@ -26,37 +26,37 @@ def obtener(filtro):
         con.close()
         return producto
 
-    def insertar(cod, nombre, desc, col, prec, fk):
+def insertar(cod, nombre, desc, col, prec, fk):
+    exito = False
+    conn = sqlite3.connect("producto.db")
+    c = conn.cursor()
+    query = """INSERT INTO Producto (codigo, nombre, descripcion, color,
+    precio, fk_id_marca)
+    VALUES (?, ?, ?, ?, ?, ?)"""
+    valores = [cod, nombre, desc, col, prec, fk]
+    try:
+        c.execute(query, valores)
+        conn.commit()
+        exito = True
+    except sqlite3.Error as e:
         exito = False
-        conn = sqlite3.connect("producto.db")
-        c = conn.cursor()
-        query = """INSERT INTO Producto (codigo, nombre, descripcion, color,
-        precio, fk_id_marca)
-        VALUES (?, ?, ?, ?, ?, ?)"""
-        valores = [cod, nombre, desc, col, prec, fk]
-        try:
-            c.execute(query, valores)
-            conn.commit()
-            exito = True
-        except sqlite3.Error as e:
-            exito = False
-            print "Error:", e.args[0]
-        conn.close()
-        return exito
+        print "Error:", e.args[0]
+    conn.close()
+    return exito
 
 
-    def eliminar(cod):
+def eliminar(cod):
+    exito = False
+    conn = sqlite3.connect("producto.db")
+    c = conn.cursor()
+    query = """DELETE from Producto WHERE codigo = ?"""
+
+    try:
+        exito = True
+        c.execute(query, [cod])
+        conn.commit()
+    except qlite3.Error as e:
         exito = False
-        conn = sqlite3.connect("producto.db")
-        c = conn.cursor()
-        query = """DELETE from Producto WHERE codigo = ?"""
-
-        try:
-            exito = True
-            c.execute(query, [cod])
-            conn.commit()
-        except qlite3.Error as e:
-            exito = False
-            print "Error", e.args[0]
-        conn.close()
-        return exito
+        print "Error", e.args[0]
+    conn.close()
+    return exito
