@@ -107,6 +107,7 @@ class Principal(QtGui.QWidget, Taller.Ui_Dialog, agregar.Ui_AddP):
     def load_line(self, palabra):
         print palabra
         productos = bd.consultar_nombre(palabra)
+        print productos
         self.model = QtGui.QStandardItemModel(len(productos), 6)
         self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"Codigo"))
         self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombre"))
@@ -117,17 +118,17 @@ class Principal(QtGui.QWidget, Taller.Ui_Dialog, agregar.Ui_AddP):
         r = 0
         for row in productos:
             index = self.model.index(r, 0, QtCore.QModelIndex())
-            self.model.setData(index, row['Codigo'])
+            self.model.setData(index, productos[r][0])
             index = self.model.index(r, 1, QtCore.QModelIndex())
-            self.model.setData(index, row['Nombre'])
+            self.model.setData(index, productos[r][1])
             index = self.model.index(r, 2, QtCore.QModelIndex())
-            self.model.setData(index, row['Descripcion'])
+            self.model.setData(index, productos[r][2])
             index = self.model.index(r, 3, QtCore.QModelIndex())
-            self.model.setData(index, row['Color'])
+            self.model.setData(index, productos[r][3])
             index = self.model.index(r, 4, QtCore.QModelIndex())
-            self.model.setData(index, row['Precio'])
+            self.model.setData(index, productos[r][4])
             index = self.model.index(r, 5, QtCore.QModelIndex())
-            self.model.setData(index, row['Fk_id_marca'])
+            self.model.setData(index, productos[r][5])
             r = r + 1
         self.table.setModel(self.model)
 
