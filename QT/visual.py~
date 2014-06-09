@@ -22,29 +22,18 @@ class Principal(QtGui.QWidget, Taller.Ui_Dialog, agregar.Ui_AddP):
         self.load(self.filtro)
         self.show()
         self.index = self.comboBox.activated.connect(self.filtrar)
-        self.NewP.clicked.connect(self.agregar)
+        self.NewP.clicked.connect(self.agrega)
         self.Edit.clicked.connect(self.editar)
         self.Del.clicked.connect(self.eliminar)
         self.lineEdit.textEdited.connect(self.load_line)
 
-    def agregar(self):
+    def agrega(self):
         app = agregando.Agregando()
         app.exec_()
-        self.load("0")
+        print "agregar" #aca va el metodo que abre la ventana agregar.ui
 
     def editar(self):
-        model = self.table.model()
-        index = self.table.currentIndex()
-        if index.row() == -1:
-            self.errorMessageDialog = QtGui.QErrorMessage(self)
-            self.errorMessageDialog.showMessage("Debe seleccionar una fila")
-        else:
-            app = agregando.Agregando()
-            codigo = model.index(index.row(), 0, QtCore.QModelIndex()).data()
-            print codigo
-            app.ed(codigo)
-            app.excec_()
-        self.load("0")
+        print "editar" #aca va el metodo que captura la linea a editar
 
     def eliminar(self): #aca va el metodo que selecciona la linea a eliminar
         model = self.table.model()

@@ -17,20 +17,6 @@ class Agregando(QtGui.QDialog, agregar.Ui_AddP):
         self.addCancel.clicked.connect(self.cancelar)
         self.show()
 
-    def ed(self, codigo):
-        self.addOk.setText("Guardar")
-        self.addOk.clicked.disconnect(self.agrega)
-        self.addOk.clicked.connect(self.edita)
-        producto = bd.get(codigo)
-        print producto
-        self.textCodigo.setText(producto[0][0])
-        self.textCodigo.setReadOnly(True)
-        self.textNom.setText(producto[0][1])
-        self.textDesc.setText(producto[0][2])
-        self.textColor.setText(producto[0][3])
-        self.textPrecio.setText(str(producto[0][4]))
-        self.textFk2.setText(str(producto[0][5]))
-
     def agrega(self):
         codigo = self.textCodigo.text()
         nombre = self.textNom.text()
@@ -42,20 +28,6 @@ class Agregando(QtGui.QDialog, agregar.Ui_AddP):
         print exito
         msgbox = QMessageBox()
         msgbox.setText("Producto agregado")
-        msgbox.exec_()
-        self.close()
-
-    def edita(self):
-        codigo = self.textCodigo.text()
-        nombre = self.textNom.text()
-        descripcion = self.textDesc.text()
-        color = self.textColor.text()
-        precio = self.textPrecio.text()
-        fk = self.textFk2.text()
-        exito = bd.guardarCambios(codigo, nombre, descripcion, color, precio, fk)
-        print exito
-        msgbox = QMessageBox()
-        msgbox.setText("Producto Editado")
         msgbox.exec_()
         self.close()
 

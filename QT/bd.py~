@@ -8,35 +8,6 @@ def conectar():
     con.row_factory = sqlite3.Row
     return con
 
-def guardarCambios(cod, nombre, desc, col, prec, fk):
-    conn = sqlite3.connect("producto.db")
-    c = conn.cursor()
-    valores = [cod, nombre, desc, col, prec, fk, cod]
-    print valores
-    query = """ UPDATE Producto SET codigo = ?,
-    nombre = ?,
-    descripcion = ?,
-    color = ?,
-    precio = ?,
-    fk_id_marca = ? WHERE codigo = ?"""
-    try:
-        c.execute(query, valores)
-        conn.commit()
-        exito = True
-    except sqlite3.Error as e:
-        exito = False
-        print "Error:", e.args[0]
-    conn.close()
-
-def get(codigo):
-    con = conectar()
-    c = con.cursor()
-    query = "SELECT * FROM  producto WHERE codigo='" + codigo + "'"
-    resultado = c.execute(query)
-    producto = resultado.fetchall()
-    con.close()
-    return producto
-
 def obtener(filtro):
     # obtiene la lista de productos segun filtro de marcas
     # 0 es para cuando no hay marca en especifico y se muestran todos los productos
