@@ -72,12 +72,8 @@ class Principal(QtGui.QWidget, Taller.Ui_Dialog, agregar.Ui_AddP):
         self.load(self.filtro)
 
 
-    def buscar(self):
-        texto = self.lineEdit.text()
-        self.load_line(texto)
-
-
     def load(self,filtro):
+        # metodo para cargar la grilla con los productos segun filtro de marca
         productos = bd.obtener(filtro)
         self.model = QtGui.QStandardItemModel(len(productos), 6)
         self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"Codigo"))
@@ -105,9 +101,9 @@ class Principal(QtGui.QWidget, Taller.Ui_Dialog, agregar.Ui_AddP):
 
 
     def load_line(self, palabra):
-        print palabra
+        # metodo para cargar la grilla con los productos
+        # se busca por nombre o string perteneciente al nombre
         productos = bd.consultar_nombre(palabra)
-        print productos
         self.model = QtGui.QStandardItemModel(len(productos), 6)
         self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"Codigo"))
         self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombre"))
