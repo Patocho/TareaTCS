@@ -60,3 +60,14 @@ def eliminar(cod):
         print "Error", e.args[0]
     conn.close()
     return exito
+
+
+def consultar_nombre(name):
+    #consultar por un producto segun nombre
+    conn = sqlite3.connect("producto.db")
+    c = conn.cursor()
+    query = """SELECT * FROM Producto WHERE nombre LIKE '%"""+name+"""%'"""
+    r = (c.execute(query).fetchall())
+    if r == None:
+        r="Elemento no encontrado"
+    return r

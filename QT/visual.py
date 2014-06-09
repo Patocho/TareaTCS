@@ -25,6 +25,7 @@ class Principal(QtGui.QWidget, Taller.Ui_Dialog, agregar.Ui_AddP):
         self.NewP.clicked.connect(self.agrega)
         self.Edit.clicked.connect(self.editar)
         self.Del.clicked.connect(self.eliminar)
+        self.lineEdit.textEdited.connect(self.load_line)
 
     def agrega(self):
         app = agregando.Agregando()
@@ -71,8 +72,41 @@ class Principal(QtGui.QWidget, Taller.Ui_Dialog, agregar.Ui_AddP):
         self.load(self.filtro)
 
 
+    def buscar(self):
+        texto = self.lineEdit.text()
+        self.load_line(texto)
+
+
     def load(self,filtro):
         productos = bd.obtener(filtro)
+        self.model = QtGui.QStandardItemModel(len(productos), 6)
+        self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"Codigo"))
+        self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombre"))
+        self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Descrp"))
+        self.model.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Color"))
+        self.model.setHorizontalHeaderItem(4, QtGui.QStandardItem(u"Precio"))
+        self.model.setHorizontalHeaderItem(5, QtGui.QStandardItem(u"Fk"))
+        r = 0
+        for row in productos:
+            index = self.model.index(r, 0, QtCore.QModelIndex())
+            self.model.setData(index, row['Codigo'])
+            index = self.model.index(r, 1, QtCore.QModelIndex())
+            self.model.setData(index, row['Nombre'])
+            index = self.model.index(r, 2, QtCore.QModelIndex())
+            self.model.setData(index, row['Descripcion'])
+            index = self.model.index(r, 3, QtCore.QModelIndex())
+            self.model.setData(index, row['Color'])
+            index = self.model.index(r, 4, QtCore.QModelIndex())
+            self.model.setData(index, row['Precio'])
+            index = self.model.index(r, 5, QtCore.QModelIndex())
+            self.model.setData(index, row['Fk_id_marca'])
+            r = r + 1
+        self.table.setModel(self.model)
+
+
+    def load_line(self, palabra):
+        print palabra
+        productos = bd.consultar_nombre(palabra)
         self.model = QtGui.QStandardItemModel(len(productos), 6)
         self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"Codigo"))
         self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombre"))
